@@ -7,11 +7,45 @@
 				<group id="custompayment" translate="label" sortOrder="1" 
 					showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Pipwave Payment</label>
+					
+					<!-- enable/disable -->
 					<field id="active" translate="label" sortOrder="1" 
 						type="select" showInDefault="1" showInWebsite="1" 
 						showInStore="1">
 						<label>Enable</label>
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+					
+					<!-- API key-->
+					<field id="api_key" translate="label comment" sortOrder="2"
+						type="text" showInDefault="1" showInWebsite="1" 
+						showInStore="1">
+						<label >API key</label>
+						<comment>API key provided by pipwave in http://merchant.pipwave.com/development-setting/index</comment>
+					</field>
+					
+					<!-- API secret-->
+					<field id="api_secret" translate="label" 
+					sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>API secret</label>
+						<comment>API secret provided by pipwave in http://merchant.pipwave.com/development-setting/index</comment>
+					</field>
+					
+					<!-- test mode -->
+					<field id="test_mode" translate="label" sortOrder="4" 
+						type="select" showInDefault="1" showInWebsite="1" 
+						showInStore="1">
+						<label>Test Mode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+					
+					<field id="processing_fee" translate="label" sortOrder="5" 
+						showInDefault="1" showInWebsite="1" 
+						showInStore="1">
+						<label>Payment processing fee</label>
+						<comment>
+						Payment processing fee configured in https://merchant.pipwave.com/account/set-processing-fee-group#general-processing-fee-group
+						</comment>
 					</field>
 				</group>
 			</section>
