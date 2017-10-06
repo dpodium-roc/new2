@@ -9,18 +9,13 @@ class PaymentMethod extends \Magento\Payment\Model\Method\AbstractMethod
 	//experiment
 	
 	//run all
-	
-	function all()
-	{
-		//check availability
-		//--WRITE HERE----
-		
-		echo 'no';
-		//load language??
-		
-	}
-	all();
-	
+	protected $_isOffline = true;
+
+    public function isAvailable(
+        \Magento\Quote\Api\Data\CartInterface $quote = null
+    ) {
+        return parent::isAvailable($quote);
+    }
 	
 	
 }
