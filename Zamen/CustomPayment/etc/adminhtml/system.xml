@@ -21,6 +21,7 @@
 						type="text" showInDefault="1" showInWebsite="1" 
 						showInStore="1">
 						<label >API key</label>
+						<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
 						<comment>API key provided by pipwave in http://merchant.pipwave.com/development-setting/index</comment>
 					</field>
 					
@@ -28,6 +29,7 @@
 					<field id="api_secret" translate="label" 
 					sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
 						<label>API secret</label>
+						<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
 						<comment>API secret provided by pipwave in http://merchant.pipwave.com/development-setting/index</comment>
 					</field>
 					
