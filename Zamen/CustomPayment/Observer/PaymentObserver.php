@@ -48,6 +48,7 @@ class PaymentObserver implements ObserverInterface
 
         $info = new SetInfo();
         $pw = new PipwaveIntegration();
+		var_dump($info);
 
         $info->process_data();
         //bring input into data array
@@ -62,6 +63,7 @@ class PaymentObserver implements ObserverInterface
 
 		//send request
 		$response = $pw->send_request_to_pw($data, $api_key);
+		echo var_dump($response);
 
 		//retrieve token
 		$token = $response['token'];
