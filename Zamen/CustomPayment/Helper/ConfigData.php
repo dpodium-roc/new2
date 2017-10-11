@@ -2,6 +2,7 @@
 namespace Zamen\CustomPayment\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
 
 
 class ConfigData extends AbstractHelper
@@ -15,13 +16,8 @@ class ConfigData extends AbstractHelper
 	const TEST_MODE		='zamen/custompayment/test_mode';
 	const PROCESSING_FEE='zamen/custompayment/processing_fee';
 
-	public function __construct
-	(
-		\Magento\Framework\App\Helper\Context $context,
-		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-	){
+	public function __construct(Context $context){
 		parent::__construct($context);
-		$this->scopeConfig = $scopeConfig;
 	}
 
 	public function getActive()

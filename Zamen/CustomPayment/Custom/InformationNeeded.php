@@ -3,13 +3,17 @@ namespace Zamen\CustomPayment\Custom;
 
 use Magento\Framework\App\ObjectManager;
 use Zamen\CustomPayment\Helper\ConfigData;
+use Magento\Framework\App\Helper\Context;
 
 class InformationNeeded
 {
+    
 
 	protected $storeManager = $objectManager->create("\Magento\Store\Model\StoreManagerInterface");
+
+    //check this? the parameter weird?
 	public function __construct(
-		\Magento\Store\Model\StoreManagerInterface $storeManager= $objectManager->create("\Magento\Store\Model\StoreManagerInterface"))
+		\Magento\Store\Model\StoreManagerInterface $storeManager = $objectManager->create("\Magento\Store\Model\StoreManagerInterface"))
 	{
 		$this->_storeManager = $storeManager;
 	}
@@ -22,16 +26,16 @@ class InformationNeeded
     protected $curr_code;
     protected $buyer_id;
     protected $buyer_email;
-	function process_data()
+	function process_data(Context $context)
 	{
 		//maybe not suitable as it is not suggested by magento dev
 		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 		$cart = $objectManager->get('\Magento\Checkout\Model\Cart');
 		$customer = $objectManager->get('Magento\Customer\Model\Session');
         $order = $objectManager->get('\Magento\Sales\Model\Order');
-
+        
         //need to input $context, but i dk what it is
-		$adminConfig = new ConfigData();
+		$adminConfig = new ConfigData($context);
 
 		$this->pw_api_key = $adminConfig->getApiKey();
 		$this->pw_api_secret = $adminConfig->getApiSecret();

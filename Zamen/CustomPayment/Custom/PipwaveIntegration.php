@@ -3,6 +3,7 @@ namespace Zamen\CustomPayment\Custom;
 
 class PipwaveIntegration {
 
+
     //generate signature using signature param
     function generate_pw_signature($signatureParam) {
         ksort($signatureParam);
@@ -37,7 +38,7 @@ class PipwaveIntegration {
         return json_decode($response, true);
     }
 
-    //render pipwave?
+    //render pipwave? get result
     protected $result;
     protected function render_sdk($response, $token, $api_key){
         if ($response['status'] == 200) {

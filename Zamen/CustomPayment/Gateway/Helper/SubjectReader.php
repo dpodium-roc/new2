@@ -21,6 +21,13 @@ class SubjectReader
         return $response['object'];
     }
 
+    //read payment
+    public function readPayment(array $subject)
+    {
+        return Helper\SubjectReader::readPayment($subject);
+    }
+
+
     //read transaction
     public function readTransaction(array $subject)
     {

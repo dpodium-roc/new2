@@ -2,7 +2,6 @@
 namespace Zamen\CustomPayment\Model\Ui;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
-use Zamen\CustomPayment\Gateway\Http\Client\ClientMock;
 
 //class ConfigProvider
 final class ConfigProvider implements ConfigProviderInterface
@@ -17,8 +16,7 @@ final class ConfigProvider implements ConfigProviderInterface
 			'payment' => [
 				self::CODE => [
 					'transactionResults' => [
-						ClientMock::SUCCESS => __('Success'),
-						ClientMock::FAILURE => __('Fraud')
+						'enter here'
 					]
 				]
 			]
