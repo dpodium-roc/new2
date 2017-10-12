@@ -4,6 +4,9 @@
     <router id="standard">
         <route id="helloworld" frontName="helloworld">
             <module name="Zamen_CustomPayment" />
+		</route>
+		<route id="custompayment" frontName="custompayment">
+            <module name="Zamen_CustomPayment" />
         </route>
     </router>
 </config>

@@ -1,5 +1,5 @@
 <?php
-namespace Zamen\CustomPayment\Controller;
+namespace Zamen\CustomPayment\Controller\Index;
 
 use Magento\Framework\App\Action\Context;
 

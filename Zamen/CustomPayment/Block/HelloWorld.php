@@ -1,7 +1,7 @@
 <?php
 namespace Zamen\CustomPayment\Block;
 
-class HelloWorld
+class HelloWorld extends \Magento\Framework\View\Element\Template
 {
     public function getHelloWorldTxt()
     {
