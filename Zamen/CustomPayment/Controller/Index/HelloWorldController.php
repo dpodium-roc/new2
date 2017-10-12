@@ -15,7 +15,7 @@ class HelloWorldController extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $resultPage = $this->_resultPageFactory->create();
-        return $resultPage;
+        $this->_view->loadLayout();
+		$this->_view->renderLayout();
     }
 }
