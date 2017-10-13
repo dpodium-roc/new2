@@ -1,19 +1,12 @@
 <?php
 namespace Zamen\CustomPayment\Custom;
 
-use Magento\Framework\App\ObjectManager;
-use Zamen\CustomPayment\Helper\AdminInput;
+use \Magento\Framework\App\ObjectManager;
 
 
-class SetInfo
+
+class SetInfo  extends \Magento\Framework\View\Element\Template
 {
-
-    protected $helper = $this->objectManager->create('Zamen\CustomPayment\Helper\AdminInput');
-    protected $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-
-	protected $cart = $objectManager->get('\Magento\Checkout\Model\Cart');
-	protected $customer = $objectManager->get('Magento\Customer\Model\Session');
-    protected $order = $objectManager->get('\Magento\Sales\Model\Order');
 
     //variable
     protected $pw_api_key;
@@ -24,21 +17,13 @@ class SetInfo
     protected $buyer_id;
     protected $buyer_email;
 
-    public function __construct(){
+    public function __construct(
+	\Magento\Framework\View\Element\Template\Context $context,
+	array $data = []
 
-        //?
-        $this->pw_api_key = $this->helper->getCustomPaymentConfig('api_key');
-		$this->pw_api_secret = $this->helper->getCustomPaymentConfig('api_secret');
+	){
 
-		//dont know where to find....
-		$this->txn_id = 'REF001';
-
-		$this->amt = $this->cart->getQuote()->getGrandTotal();
-		$this->curr_code = $this->_storeManager->getStore()->getCurrentCurrency->getCode();
-
-		$this->buyer_id = $this->customer->getCustomerId();
-		$this->buyer_email = $this->customer->getCustomer()->getEmail();
-
+		parent::__construct($context, $data);
 
 	}
 
@@ -62,6 +47,7 @@ class SetInfo
     }
     function get_data()
 	{
+		$this->data = 'something wrong here';
 		return $this->data;
 	}
 
@@ -84,6 +70,37 @@ class SetInfo
 	{
 		return $this->signatureParam;
 	}
+	protected $objectManager;
+	protected $helper;
+	protected $cart;
+	protected $customer;
+	protected $order;
+
+
+function process_data()
+{
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$helper = $this->objectManager->create('Zamen\CustomPayment\Helper\AdminInput');
+
+
+		$cart = $objectManager->get('\Magento\Checkout\Model\Cart');
+		$customer = $objectManager->get('Magento\Customer\Model\Session');
+		$order = $objectManager->get('\Magento\Sales\Model\Order');
+
+		//?
+        $this->pw_api_key = $this->helper->getCustomPaymentConfig('api_key');
+		$this->pw_api_secret = $this->helper->getCustomPaymentConfig('api_secret');
+
+		//dont know where to find....
+		$this->txn_id = 'REF001';
+
+		$this->amt = $this->cart->getQuote()->getGrandTotal();
+		$this->curr_code = $this->_storeManager->getStore()->getCurrentCurrency->getCode();
+
+		$this->buyer_id = $this->customer->getCustomerId();
+		$this->buyer_email = $this->customer->getCustomer()->getEmail();
+
+}
 
 
 

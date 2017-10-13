@@ -5,6 +5,8 @@ use Magento\Framework\Phrase;
 use Magento\Payment\Block\ConfigurableInfo;
 use Zamen\CustomPayment\Gateway\Response\FraudHandler;
 
+
+
 class Info extends ConfigurableInfo
 {
 	/*
