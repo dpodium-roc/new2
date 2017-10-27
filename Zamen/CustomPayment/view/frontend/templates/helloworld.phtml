@@ -1,0 +1,68 @@
+
+<p><?php echo "finallly"; ?></p>
+<p>testsetetstes</p>
+<p>second</p>
+<p>third</p>
+<p><?php 
+
+echo $b = $block->getHelloWorld(); 
+var_dump($b);
+
+?></p>
+<script>
+<?php 
+$block->initObjectManager();
+$adminData = $block->getAdminData();
+$customerData = $block->getCustomerData(); 
+$urlLink = $block->getUrlLink(); ?>
+</script>
+
+
+<!-- get data from admin configuration -->
+<p>Api key is : <?php $api_key = $adminData->getApiKey();
+				echo $api_key; ?></p>
+<p>Api secret is : <?php $api_secret = $adminData->getApiSecret();
+					echo $api_secret; ?></p>
+<p>Test mode : <?php $test_mode = $adminData->getTestMode();
+				echo $test_mode; ?></p>
+<p>Processing fee is : <?php $processing_fee = $adminData->getProcessingFee();
+						echo $processing_fee; ?></p>
+						
+<p>URL is : <?php $url = $urlLink->getUrl($test_mode);
+						echo $url; ?></p>
+						
+<p>data : <?php 
+$block->do_all();
+
+
+?></p>
+
+<p>
+<img src="https://www.pipwave.com/wp-content/themes/zerif-lite-child/images/favicon.ico"></img>
+</p>
+<a href="www.google.com">google</a>
+<p>did it appear?</p>
+
+<p>
+yesss
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

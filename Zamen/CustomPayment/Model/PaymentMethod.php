@@ -7,6 +7,8 @@ class PaymentMethod extends \Magento\Payment\Model\Method\AbstractMethod
 	protected $_code='custompayment';
 	
 	//experiment
+	//own form
+	protected $_formBlockType = 'Zamen\CustomPayment\Block\PipwaveForm';
 	
 	//run all
 	protected $_isOffline = true;

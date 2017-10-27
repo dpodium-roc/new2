@@ -4,9 +4,11 @@
 		"urn:magento:module:Magento_Config:etc/system_file.xsd">
 		<system>
 			<section id="payment">
-				<group id="custompayment" translate="label" sortOrder="1" 
+				<group id="pipwave_payment" translate="label" sortOrder="1" 
 					showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Pipwave Payment</label>
+					<!-- create account -->
+					<comment><![CDATA[<a href="https://merchant.pipwave.com/site/signup" target="_blank">Click here</a> to signup for a new account. It is quick and easy!<br>If you already have an account and wish to visit <a href="https://merchant.pipwave.com">pipwave</a>.]]></comment>
 					
 					<!-- enable/disable -->
 					<field id="active" translate="label" sortOrder="1" 
@@ -14,15 +16,15 @@
 						showInStore="1">
 						<label>Enable</label>
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<comment>pipwave account is needed for this payment method.</comment>
 					</field>
 					
 					<!-- API key-->
-					<field id="api_key" translate="label comment" sortOrder="2"
+					<field id="api_key" translate="label" sortOrder="2"
 						type="text" showInDefault="1" showInWebsite="1" 
 						showInStore="1">
-						<label >API key</label>
-						<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
-						<comment>API key provided by pipwave in http://merchant.pipwave.com/development-setting/index</comment>
+						<label>API key</label>
+						<comment><![CDATA[<a href="https://merchant.pipwave.com/development-setting/index" target="_blank">API Key</a> provided by pipwave.]]></comment>
 					</field>
 					
 					<!-- API secret-->
@@ -30,7 +32,7 @@
 					sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
 						<label>API secret</label>
 						<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
-						<comment>API secret provided by pipwave in http://merchant.pipwave.com/development-setting/index</comment>
+						<comment><![CDATA[<a href="https://merchant.pipwave.com/development-setting/index" target="_blank">API Secret</a> provided by pipwave.]]></comment>
 					</field>
 					
 					<!-- test mode -->
@@ -45,9 +47,6 @@
 						showInDefault="1" showInWebsite="1" 
 						showInStore="1">
 						<label>Payment processing fee</label>
-						<comment>
-						Payment processing fee configured in https://merchant.pipwave.com/account/set-processing-fee-group#general-processing-fee-group
-						</comment>
 					</field>
 				</group>
 			</section>

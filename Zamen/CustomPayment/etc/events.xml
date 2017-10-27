@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-		<event name="sales_order_place_before">
-			<observer name="PaymentObserver" instance="Zamen\CustomPayment\Observer\PaymentObserver" />
-		</event>
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="event_omg">
+    <observer name="zamen_custompayment_observer" instance="\Zamen\CustomPayment\Observer\TestObserver"></observer>
+  </event>
 </config>
