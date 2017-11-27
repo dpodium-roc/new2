@@ -1,0 +1,76 @@
+
+<!-- pipwave write here : admin sales order view -->
+
+
+<?php 
+	//get order id
+	
+	//$_order = $block->getOrder();
+	$temp = $block->getOrder();
+	$orderNumber = $temp->getRealOrderId();
+	//echo 'total: '.$_order->getGrandTotal();
+?>
+<section class="admin__page-section">
+	<div class="admin__page-section-title">
+		<span class="title"><?= __('Information from pipwave') ?></span>
+	</div>
+	<div class="admin__page-section-content">
+		<?php /*
+		<p><?= $block->sayHello(); ?></p>
+		<p><?= __('Order Number: # %1', $orderNumber) ?></p>
+		*/ ?>
+		
+		<p><?php $text = $block->showInfo($orderNumber);?></p>
+			
+			<div class="admin__page-section-item order-payment-method">
+				<div class="admin__page-section-item-title">
+				<span class="title">Payment Information</span>
+				</div>
+				<div class="admin__page-section-item-content">
+				<?php echo __('pw id: '.$text['pw_id']);?></p>
+				<?php echo __('txn id: '.$text['txn_id']);?></p>
+				<?php echo __('pg txn id: '.$text['pg_txn_id']);?></p>
+				
+				<?php echo '<br>'; ?>
+				<?php echo __('payment method code: '.$text['payment_method_code']);?></p>
+				<?php echo __('payment method title: '.$text['payment_method_title']);?></p>
+				
+				<?php echo '<br>'; ?>
+				<?php echo __('amount: '.$text['amount']);?></p>
+				<?php echo __('final amount: '.$text['final_amount']);?></p>
+				<?php echo __('currency code: '.$text['currency_code']);?></p>
+				<?php echo __('tax exempted amount: '.$text['tax_exempted_amount']);?></p>
+				<?php echo __('processing fee amount: '.$text['processing_fee_amount']);?></p>
+				<?php echo __('shipping amount: '.$text['shipping_amount']);?></p>
+				<?php echo __('handling amount: '.$text['handling_amount']);?></p>
+				<?php echo __('tax amount: '.$text['tax_amount']);?></p>
+				<?php echo __('total amount: '.$text['total_amount']);?></p>
+				</div>
+			</div>
+			<!-- testing division -->
+			<div class="admin__page-section-item order-shipping-method">
+				<div class="admin__page-section-item-title">
+				<span class="title">Risk Information</span>
+				</div>
+				<div class="admin__page-section-item-content">
+				
+				<?php /*
+				<?php echo __('subscription token: '.$text['subscription_token']);?></p>
+				<?php echo __('charge index: '.$text['charge_index']);?></p>
+				<?php echo __('reversible payment: '.$text['reversible_payment']);?></p>
+				<?php echo __('settlement account: '.$text['settlement_account']);?></p>
+				<?php echo __('require capture: '.$text['require_capture']);?></p>
+				<?php echo __('transaction status: '.$text['transaction_status']);?></p>
+				*/ ?>
+				<?php echo __('mobile number verification: '.$text['mobile number verification']);?></p>
+				<?php echo __('risk service type: '.$text['risk service type']);?></p>
+				<?php echo __('aft score: '.$text['aft score']);?></p>
+				<?php echo __('aft status: '.$text['aft status']);?></p>
+				<?php echo __('pipwave score: '.$text['pipwave score']);?></p>
+				<?php echo __('rules action: '.$text['rules action']);?></p>
+				<?php echo __('risk management data: '.$text['risk management data']);?></p>
+				<?php echo __('matched rules: '.$text['matched rules']);?></p>
+				</div>
+			</div>
+	</div>
+</section>
