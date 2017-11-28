@@ -12,10 +12,10 @@ use pipwave\CustomPayment\Block\InformationNeeded as Information;
  */
 class SalesOrderViewObserver implements ObserverInterface
 {
-	public function execute(Observer $observer)
-	{
+    public function execute(Observer $observer)
+    {
         $block = $observer->getBlock();
-		
+        
         if(($block->getNameInLayout() == 'order_info') && ($child = $block->getChild('salesOrderCustomBlock'))){
             $transport = $observer->getTransport();
             if($transport){

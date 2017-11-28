@@ -3,5 +3,5 @@ namespace pipwave\CustomPayment\Model;
 
 interface ConfigProviderInterface
 {
-	public function getConfig();
+    public function getConfig();
 }

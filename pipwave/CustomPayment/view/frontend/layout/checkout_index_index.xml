@@ -19,9 +19,9 @@
                                                             <item name="children" xsi:type="array">
                                                                 <item name="custompayment" xsi:type="array">
                                                                     <item name="component" xsi:type="string">pipwave_CustomPayment/js/view/payment/method-renderer</item>
-																	<item name="methods" xsi:type="array">
+                                                                    <item name="methods" xsi:type="array">
                                                                         <item name="custompayment" xsi:type="array">
-																			<item name="isBillingAddressRequired" xsi:type="boolean">false</item>
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">false</item>
                                                                         </item>
                                                                     </item>
                                                                 </item>

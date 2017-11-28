@@ -11,16 +11,16 @@ class PipwaveIntegration {
         }
         return sha1($signature);
     }
-	
-	function get_agent() {
-		$agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
-		return $agent;
-	}
+    
+    function get_agent() {
+        $agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
+        return $agent;
+    }
 
     function send_request_to_pw($data, $pw_api_key, $url, $agent) {
-		
+        
         $ch = curl_init();
-		curl_setopt($ch, CURLOPT_PROXY, 'my-proxy.offgamers.lan:3128');
+        curl_setopt($ch, CURLOPT_PROXY, 'my-proxy.offgamers.lan:3128');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key:' . $pw_api_key));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -41,7 +41,7 @@ class PipwaveIntegration {
         return json_decode($response, true);
     }
 
-	//render here is not used
+    //render here is not used
     protected $result;
     function render_sdk($response, $api_key, $sdk_url, $loading_img){
         if ($response['status'] == 200) {
@@ -72,10 +72,10 @@ class PipwaveIntegration {
                         })(document, 'script', "+$sdk_url+", 'pw.sdk.min.js', 'pw.sdk.min.js', 'pwscript');
                     </script>";
         } else {
-			$this->result="my ginnie~~";
+            $this->result="my ginnie~~";
             //$this->result = isset($response['message']) ? (is_array($response['message']) ? implode('; ', $response['message']) : $response['message']) : "Error occured";
         }
-	}
+    }
 
     function get_result(){
         return $this->result;
