@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+ 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="index" frontName="index">
+            <module name="pipwave_CustomPayment" />
+        </route>
+		<route id="notification" frontName="notification">
+            <module name="pipwave_CustomPayment" />
+        </route>
+		<route id="fail" frontName="fail">
+            <module name="pipwave_CustomPayment" />
+        </route>
+		<route id="success" frontName="success">
+            <module name="pipwave_CustomPayment" />
+        </route>
+    </router>
+</config>
