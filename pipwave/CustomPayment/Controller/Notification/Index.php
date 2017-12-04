@@ -48,13 +48,15 @@ class Index extends \Magento\Framework\App\Action\Action
         $pw_id = (isset($post_data['pw_id']) && !empty($post_data['pw_id'])) ? $post_data['pw_id'] : '';
         $order_number = (isset($post_data['txn_id']) && !empty($post_data['txn_id'])) ? $post_data['txn_id'] : '';
         $amount = (isset($post_data['amount']) && !empty($post_data['amount'])) ? $post_data['amount'] : '';
+        $total_amount = (isset($post_data['total_amount']) && !empty($post_data['total_amount'])) ? $post_data['total_amount'] : 0.00;
         $final_amount = (isset($post_data['final_amount']) && !empty($post_data['final_amount'])) ? $post_data['final_amount'] : 0.00;
         $currency_code = (isset($post_data['currency_code']) && !empty($post_data['currency_code'])) ? $post_data['currency_code'] : '';
         $transaction_status = (isset($post_data['transaction_status']) && !empty($post_data['transaction_status'])) ? $post_data['transaction_status'] : '';
         $payment_method = 'pipwave' . (!empty($post_data['payment_method_title']) ? (" - " . $post_data['payment_method_title']) : "");
         $signature = (isset($post_data['signature']) && !empty($post_data['signature'])) ? $post_data['signature'] : '';
         //$shipping = (isset($post_data['shipping_info']) && !empty($post_data['shipping_info'])) ? $post_data['shipping_info'] : '';
-        
+        $refund = $total_amount - $final_amount;
+        $txn_sub_status = (isset($post_data['txn_sub_status']) && !empty($post_data['txn_sub_status'])) ? $post_data['txn_sub_status'] : time();
         //var_dump($post_data);
         
         // pipwave risk execution result
@@ -78,39 +80,17 @@ class Index extends \Magento\Framework\App\Action\Action
                 $transaction_status = -1;
             }
         */
-        //testing
-        /*
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $order = $objectManager->create('\Magento\Sales\Model\Order') ->load($order_number);
-        $orderState = Order::STATE_PROCESSING;
-        $order->setPaymentMethod('custompayment');
-        $order->setState($orderState)->setStatus(Order::STATE_PROCESSING);
-        */
-                
-        //change order status
-        //$orderId = $this->information->getOrderId();
-        /*
-        $order = $this->order->load($order_number);
-        $state = $this->information->getOrderStatus($transaction_status);
         
-        //add comment [admin>dashboard/sales>order>commenthistory/scroll bottom] 
-        $order->addStatusHistoryComment('this is just an experiment '.$payment_method);
         
-        //set status
-        $order->setState($state)->setStatus($state);
-        
-        //$order->addStatusHistoryComment(__('status detail: '.$state.'Thank you.'));
-        //$order->addComment('paid with: '+$payment_method);
-        //$order->setShippingAddress();
-        */
-        //save changes
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($order_number);
+        //get order using increment id
+        $order = $this->order->loadByIncrementId($order_number);
         
         //testing status other than 10
-        //$transaction_status = 20;
+        //$transaction_status = 2;
         
-        $order = $this->information->processNotification($transaction_status, $order);
+        
+        $order = $this->information->processNotification($transaction_status, $order, $refund, $txn_sub_status);
+        
         $order->addStatusHistoryComment('Rule Action: '.$rule_action)->setIsCustomerNotified(false);
         if ($pipwave_score!='') {
             $order->addStatusHistoryComment('pipwave Score: '.$pipwave_score)->setIsCustomerNotified(false);
@@ -123,7 +103,9 @@ class Index extends \Magento\Framework\App\Action\Action
             ]);
         $NotificationInformationModel->save();
         */
-        
+        //var_dump($post_data);
+        //var_dump($post_data['mobile_number_verification']);
+        //var_dump($post_data['mobile_number']);
         $data =[
             'order_id' => $order_number,
             'pw_id' => $pw_id,
@@ -146,14 +128,17 @@ class Index extends \Magento\Framework\App\Action\Action
             'settlement_account' => $post_data['settlement_account'],
             'require_capture' => $post_data['require_capture'],
             'transaction_status' => $post_data['transaction_status'],
+            'mobile_number' => $post_data['mobile_number'],
+            'mobile_number_country_code' => $post_data['mobile_number_country_code'],
             'mobile_number_verification' => $post_data['mobile_number_verification'],
             'risk_service_type' => $post_data['risk_service_type'],
             'aft_score' => $post_data['aft_score'],
             'aft_status' => $post_data['aft_status'],
             'pipwave_score' => $post_data['pipwave_score'],
             'rules_action' => $post_data['rules_action'],
-            'risk_management_data' => $post_data['risk_management_data'],
-            'matched_rules' => $post_data['matched_rules']
+            'risk_management_data' => json_encode($post_data['risk_management_data']),
+            'matched_rules' => json_encode($post_data['matched_rules']),
+            'txn_sub_status' => $post_data['txn_sub_status']
             ];
         
         //$this->NotificationInformationFactory->create()->setData($data)->save();
@@ -188,6 +173,7 @@ class Index extends \Magento\Framework\App\Action\Action
             );
         }
 		*/
+		/*
 		foreach ($order->getAllItems() as $item) {
 			$product = $item->getProduct();
 			if ((float)$product->getPrice()!=0) {
@@ -200,9 +186,10 @@ class Index extends \Magento\Framework\App\Action\Action
                 );
 			}
         }
+		*/
 		$x = $order->getAllItems();
-		print_r($product);
-		print_r($itemInfo);
+		//print_r($product);
+		//print_r($itemInfo);
 		
 		/*
         
@@ -319,6 +306,9 @@ class Index extends \Magento\Framework\App\Action\Action
         */
         
         
+        //print_r($post_data['pg_raw_data']);
+        //var_dump($post_data['pg_raw_data']);
+        //print_r($post_data['pg_raw_data'][1]);
 
     }
     

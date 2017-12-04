@@ -104,7 +104,7 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
         $this->notificationUrl = $this->urlLink->notificationPageUrl();
         
         //add ngrok url to replace 'localhost'
-        $this->notificationUrl = 'https://3581f5c2.ngrok.io/magento2-develop/magento2-develop/notification/notification/index';
+        $this->notificationUrl = 'https://93a3b5dc.ngrok.io/magento2-develop/magento2-develop/notification/notification/index';
         
         
         //address
@@ -169,7 +169,7 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
                 'first_name' => $order->getBillingAddress()->getFirstname(),
                 'last_name' => $order->getBillingAddress()->getLastname(),
                 'contact_no' =>$order->getBillingAddress()->getTelephone(),
-                'country' => $order->getBillingAddress()->getCountryId(),
+                'country_code' => $order->getBillingAddress()->getCountryId(),
                 'surcharge_group' => $this->adminConfig->getProcessingFee(),
             ),
             //testing below two variables
@@ -178,7 +178,7 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
                 'name' =>$order->getShippingAddress()->getFirstname().' '.$order->getShippingAddress()->getLastname(),
                 'city' =>$order->getShippingAddress()->getCity(),
                 'zip' =>$order->getShippingAddress()->getPostCode(),
-                'country' => $order->getShippingAddress()->getCountryId(),
+                'country_iso2' => $order->getShippingAddress()->getCountryId(),
                 'email' =>$order->getShippingAddress()->getEmail(),
                 'contact_no' =>$order->getShippingAddress()->getTelephone(),
                 'address1' => $shipAddress1,
@@ -190,7 +190,7 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
                 'name' =>$order->getBillingAddress()->getFirstname().' '.$order->getBillingAddress()->getLastname(),
                 'city' =>$order->getBillingAddress()->getCity(),
                 'zip' =>$order->getBillingAddress()->getPostCode(),
-                'country' => $order->getBillingAddress()->getCountryId(),
+                'country_iso2' => $order->getBillingAddress()->getCountryId(),
                 'email' =>$order->getBillingAddress()->getEmail(),
                 'contact_no' =>$order->getBillingAddress()->getTelephone(),
                 'address1' => $billAddress1,
@@ -204,6 +204,7 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
                 ),
             
         );
+        //print_r($this->data);
         /*
         foreach ($order->getAllItems() as $item) { 
             $data['item_info'][] = array(
@@ -342,11 +343,10 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
     const PIPWAVE_UNKNOWN_STATUS = \Magento\Sales\Model\Order::STATE_PENDING_PAYMENT;
     
     protected $paid = false;
-    function processNotification($transaction_status, $order)
+    function processNotification($transaction_status, $order, $refund_amount, $txn_sub_status)
     {
         switch ($transaction_status) {
                 case 5: // pending
-                    //i didnt test this
                     $status = SELF::PIPWAVE_PENDING;
                     $order->setState($status)->setStatus($status);
                     $order->addStatusHistoryComment('Payment status: Pending payment.')->setIsCustomerNotified(true);
@@ -364,25 +364,27 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
                     //$status = $method->status_cancelled;
                     break;
                 case 10: // complete
-                    $status = SELF::PIPWAVE_PAID;
-                    $order->setState($status)->setStatus($status);
-                    $order->addStatusHistoryComment('Payment status: Paid.')->setIsCustomerNotified(true);
+                    //$status = SELF::PIPWAVE_PAID;
+                    //$order->setState($status)->setStatus($status);
                     
-                    //if auto (invoice-shipping) enabled
-                    if ($this->adminConfig->isShippingEnabled()==1 || $this->adminConfig->isInvoiceEnabled()==1 ) {
-                        
-                        //if auto-invoice enabled
+                    //502
+                    if ($txn_sub_status==502) {
+                        $order->addStatusHistoryComment('Payment status: Paid.')->setIsCustomerNotified(true);
+                        //if auto (invoice-shipping) enabled
+                        if ($this->adminConfig->isShippingEnabled()==1 || $this->adminConfig->isInvoiceEnabled()==1 ) {
 
-                        if ($this->adminConfig->isInvoiceEnabled()==1) {
-                            //create invoice
-                            $invoice = $this->adminConfig->createInvoice($order);
-                            //var_dump($invoice);
-                            $order->addStatusHistoryComment('Invoice created automatically', false);
-                            $order->addStatusHistoryComment(__('Notified customer about invoice #%1.', $invoice['id']))->setIsCustomerNotified(true);
-                            if($invoice && $this->adminConfig->isShippingEnabled()==1) {
-                                //create shipment
-                                $this->adminConfig->createShipment($order,$invoice);
-                                $order->addStatusHistoryComment('Shipment created automatically', false);
+                            //if auto-invoice enabled
+                            if ($this->adminConfig->isInvoiceEnabled()==1) {
+                                //create invoice
+                                $invoice = $this->adminConfig->createInvoice($order);
+                                //var_dump($invoice);
+                                $order->addStatusHistoryComment('Invoice created automatically', false);
+                                $order->addStatusHistoryComment(__('Notified customer about invoice #%1.', $invoice['id']))->setIsCustomerNotified(true);
+                                if($invoice && $this->adminConfig->isShippingEnabled()==1) {
+                                    //create shipment
+                                    $this->adminConfig->createShipment($order,$invoice);
+                                    $order->addStatusHistoryComment('Shipment created automatically', false);
+                                }
                             }
                         }
                     }
@@ -409,7 +411,7 @@ class InformationNeeded extends \Magento\Framework\View\Element\Template
                     $status = SELF::PIPWAVE_PARTIAL_REFUNDED;
                     $order->setState($status)->setStatus($status);
                     
-                    $order->addStatusHistoryComment('Payment status: Partial Refunded.')->setIsCustomerNotified(true);
+                    $order->addStatusHistoryComment('Payment status: Partial Refunded. Amount: '.$refund_amount)->setIsCustomerNotified(true);
                     break;
                 case -1: // signature mismatch
                     $status = SELF::PIPWAVE_SIGNATURE_MISMATCH;

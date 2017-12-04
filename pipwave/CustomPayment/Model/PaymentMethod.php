@@ -8,11 +8,7 @@ class PaymentMethod extends \Magento\Payment\Model\Method\AbstractMethod
     
     //to get 'pending' state for newOrderStatus
     protected $_isInitializeNeeded = true;
-    
-    //experiment
-    //own form
-    
-    
+
     //run all
     protected $_isOffline = true;
 

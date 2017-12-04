@@ -1,4 +1,4 @@
-
+ 
 <!-- pipwave write here : admin sales order view -->
 
 
@@ -27,24 +27,27 @@
                 <span class="title">Payment Information</span>
                 </div>
                 <div class="admin__page-section-item-content">
-                <?php echo __('pw id: '.$text['pw_id']);?></p>
-                <?php echo __('txn id: '.$text['txn_id']);?></p>
-                <?php echo __('pg txn id: '.$text['pg_txn_id']);?></p>
+                <p><?php echo __('pw id: '.$text['pw_id']);?></p>
+                <p><?php echo __('txn id: '.$text['txn_id']);?></p>
+                <p><?php echo __('pg txn id: '.$text['pg_txn_id']);?></p>
+				<p><?php echo __('mobile number: '.$text['mobile_number_country_code'].$text['mobile_number']);?></p>
+				
                 
-                <?php echo '<br>'; ?>
-                <?php echo __('payment method code: '.$text['payment_method_code']);?></p>
-                <?php echo __('payment method title: '.$text['payment_method_title']);?></p>
+                <p><?php echo '<br>'; ?>
+                <p><?php echo __('payment method code: '.$text['payment_method_code']);?></p>
+                <p><?php echo __('payment method title: '.$text['payment_method_title']);?></p>
                 
-                <?php echo '<br>'; ?>
-                <?php echo __('amount: '.$text['amount']);?></p>
-                <?php echo __('final amount: '.$text['final_amount']);?></p>
-                <?php echo __('currency code: '.$text['currency_code']);?></p>
-                <?php echo __('tax exempted amount: '.$text['tax_exempted_amount']);?></p>
-                <?php echo __('processing fee amount: '.$text['processing_fee_amount']);?></p>
-                <?php echo __('shipping amount: '.$text['shipping_amount']);?></p>
-                <?php echo __('handling amount: '.$text['handling_amount']);?></p>
-                <?php echo __('tax amount: '.$text['tax_amount']);?></p>
-                <?php echo __('total amount: '.$text['total_amount']);?></p>
+                <p><?php echo '<br>'; ?>
+                <p><?php echo __('currency code: '.$text['currency_code']);?></p>
+                <p><?php echo __('amount: '.$text['amount']);?></p>
+                <p><?php echo __('tax exempted amount: '.$text['tax_exempted_amount']);?></p>
+                <p><?php echo __('processing fee amount: '.$text['processing_fee_amount']);?></p>
+                <p><?php echo __('shipping amount: '.$text['shipping_amount']);?></p>
+                <p><?php echo __('handling amount: '.$text['handling_amount']);?></p>
+                <p><?php echo __('tax amount: '.$text['tax_amount']);?></p>
+                <p><?php echo __('total amount: '.$text['total_amount']);?></p>
+                <p><?php echo __('final amount: '.$text['final_amount']);?></p>
+
                 </div>
             </div>
             <!-- testing division -->
@@ -62,14 +65,33 @@
                 <?php echo __('require capture: '.$text['require_capture']);?></p>
                 <?php echo __('transaction status: '.$text['transaction_status']);?></p>
                 */ ?>
-                <?php echo __('mobile number verification: '.$text['mobile number verification']);?></p>
-                <?php echo __('risk service type: '.$text['risk service type']);?></p>
-                <?php echo __('aft score: '.$text['aft score']);?></p>
-                <?php echo __('aft status: '.$text['aft status']);?></p>
-                <?php echo __('pipwave score: '.$text['pipwave score']);?></p>
-                <?php echo __('rules action: '.$text['rules action']);?></p>
-                <?php echo __('risk management data: '.$text['risk management data']);?></p>
-                <?php echo __('matched rules: '.$text['matched rules']);?></p>
+				
+				<p><?php $risk_management_data = json_decode($text['risk_management_data'],true); ?>
+				<p><?php $matched_rules = json_decode($text['matched_rules'],true); ?>
+                <p><?php echo __('mobile number verification: '.$text['mobile_number_verification']);?></p>
+                <p><?php echo __('risk service type: '.$text['risk_service_type']);?></p>
+                <p><?php echo __('aft score: '.$text['aft_score']);?></p>
+                <p><?php echo __('aft status: '.$text['aft_status']);?></p>
+                <p><?php echo __('pipwave score: '.$text['pipwave_score']);?></p>
+                <p><?php echo __('rules action: '.$text['rules_action']);?></p>
+                <!-- <p><?php //echo __('risk management data: '.$text['risk_management_data']);?></p> -->
+				<p><?php
+                    echo __('risk management data: ');
+                    if ($risk_management_data!=null) {
+                        foreach ($risk_management_data as $key => $value) {
+                            echo '<li>' . $key . ': ' . $value . '</li>';
+                        }
+                    }
+				?></p>
+                <!-- <p><?php //echo __('matched rules: '.$text['matched_rules']);?></p> -->
+				<p><?php
+                    echo __('matched rules: ');
+                    if ($matched_rules!=null) {
+                        foreach ($matched_rules as $key => $value) {
+                            echo '<li>' . $key . ': ' . $value . '</li>';
+                        }
+                    }
+				?></p>
                 </div>
             </div>
     </div>

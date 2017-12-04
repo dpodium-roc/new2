@@ -42,11 +42,11 @@
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					</field>
 					
-					<field id="processing_fee" translate="label" sortOrder="5" 
+					<field id="processing_fee" translate="label" sortOrder="5" type="text"
 						showInDefault="1" showInWebsite="1" 
 						showInStore="1">
 						<label>Payment processing fee group</label>
-						<comment><![CDATA[Fee Group can be configured<a href="https://merchant.pipwave.com/account/set-processing-fee-group#general-processing-fee-group" target="_blank"> here</a>.]]></comment>
+						<comment><![CDATA[Enter reference ID here. Fee Group can be configured<a href="https://merchant.pipwave.com/account/set-processing-fee-group#general-processing-fee-group" target="_blank"> here</a>.]]></comment>
 					</field>
 					
 					
@@ -59,7 +59,7 @@
 					<field id="auto_shipping" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
 					<label>Auto shipping</label>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-					<comment><![CDATA[Shipping will be created automatically after buyer made payment. Auto-invoice must be enabled for this to work.]]></comment>
+					<comment><![CDATA[Shipping will be created automatically after buyer made payment. Auto-invoice must be enabled for this to work. Only select this if you are certain that the product will be shipped to reduce conplexity when dealing with cancellation or refund.]]></comment>
 					</field>
 				</group>
 			</section>

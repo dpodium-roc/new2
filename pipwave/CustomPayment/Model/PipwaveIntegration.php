@@ -3,6 +3,8 @@ namespace pipwave\CustomPayment\Model;
 
 class PipwaveIntegration {
 
+    //generate signature
+    //called in pipwave\CustomPayment\Block\InformationNeeded.php
     function generate_pw_signature($signatureParam) {
         ksort($signatureParam);
         $signature = "";
@@ -11,14 +13,15 @@ class PipwaveIntegration {
         }
         return sha1($signature);
     }
-    
+
+    //called in pipwave\CustomPayment\Block\InformationNeeded.php
     function get_agent() {
         $agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
         return $agent;
     }
 
+    //called in pipwave\CustomPayment\Block\InformationNeeded.php
     function send_request_to_pw($data, $pw_api_key, $url, $agent) {
-        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_PROXY, 'my-proxy.offgamers.lan:3128');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key:' . $pw_api_key));
@@ -42,6 +45,7 @@ class PipwaveIntegration {
     }
 
     //render here is not used
+    //render is in pipwave\CustomPayment\view\frontend\web\js\view\payment\method-renderer\custompayment.js
     protected $result;
     function render_sdk($response, $api_key, $sdk_url, $loading_img){
         if ($response['status'] == 200) {
@@ -49,7 +53,6 @@ class PipwaveIntegration {
                 'api_key' => $api_key,
                 'token' => $response['token']
             ]);
-            
             $this->result = "
                     <div id='pwscript' class='text-center'></div>
                     <div id='pwloading' style='text-align: center;'>
@@ -72,11 +75,11 @@ class PipwaveIntegration {
                         })(document, 'script', "+$sdk_url+", 'pw.sdk.min.js', 'pw.sdk.min.js', 'pwscript');
                     </script>";
         } else {
-            $this->result="my ginnie~~";
-            //$this->result = isset($response['message']) ? (is_array($response['message']) ? implode('; ', $response['message']) : $response['message']) : "Error occured";
+            $this->result = isset($response['message']) ? (is_array($response['message']) ? implode('; ', $response['message']) : $response['message']) : "Error occured";
         }
     }
 
+    //called in pipwave\CustomPayment\Block\InformationNeeded.php
     function get_result(){
         return $this->result;
     }

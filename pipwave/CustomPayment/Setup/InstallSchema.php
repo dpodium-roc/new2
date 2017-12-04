@@ -174,60 +174,81 @@ class InstallSchema implements InstallSchemaInterface
                     'Transaction_status'
                 )
                 ->addColumn(
+                    'mobile_number',
+                    Table::TYPE_TEXT,
+                    null,
+                    ['nullable' => true, 'default' => null],
+                    'Mobile_number'
+                )
+                ->addColumn(
+                    'mobile_number_country_code',
+                    Table::TYPE_TEXT,
+                    null,
+                    ['nullable' => true, 'default' => null],
+                    'Mobile_number_country_code'
+                )
+                ->addColumn(
                     'mobile_number_verification',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Mobile_number_verification'
                 )
                 ->addColumn(
                     'risk_service_type',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Risk_service_type'
                 )
                 ->addColumn(
                     'aft_score',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Aft_score'
                 )
                 ->addColumn(
                     'aft_status',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Aft_status'
                 )
                 ->addColumn(
                     'pipwave_score"',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Pipwave_score'
                 )
                 ->addColumn(
                     'rules_action',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Rules_action'
                 )
                 ->addColumn(
                     'risk_management_data',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Risk_management_data'
                 )
                 ->addColumn(
                     'matched_rules',
-                    Table::TYPE_INTEGER,
+                    Table::TYPE_TEXT,
                     null,
                     ['nullable' => true, 'default' => null],
                     'Matched_rules'
+                )
+                ->addColumn(
+                    'txn_sub_status',
+                    Table::TYPE_INTEGER,
+                    null,
+                    ['nullable' => true, 'default' => null],
+                    'Txn_sub_status'
                 )
                 ->setComment('Information sent from pipwave after buyer made payment');
             $installer->getConnection()->createTable($table);

@@ -60,7 +60,7 @@ define(
             placeOOrder: function (data, event) {
                 var self = this;
                 //self.afterPlaceOrder();
-                $(".actions-toolbar").hide();
+                
                 if (event) {
                     event.preventDefault();
                 }
@@ -78,7 +78,7 @@ define(
                                 
                                 //self.goodResult=false;
                                 self.afterPlaceOrder();
-                                
+                                $(".actions-toolbar").hide();
                             }
                         );
                     return true;

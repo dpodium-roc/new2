@@ -1,6 +1,7 @@
 <?php
 namespace pipwave\CustomPayment\Helper;
 
+//admin configuration data
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     public function __construct(
